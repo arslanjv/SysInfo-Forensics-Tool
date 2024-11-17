@@ -69,7 +69,7 @@ Contributions are welcome! If you'd like to improve the tool or add features, fe
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the [MIT License](../LICENSE).
 
 ## Acknowledgments
 
