@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>System Information</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Verdana, sans-serif;
+        background-color: #090d00;
+        color: rgba(255, 255, 255, 0.85);
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      h1 {
+        font: 700 3em/1 "Oswald", sans-serif;
+        letter-spacing: 0;
+        padding: 0.25em 0 0.325em;
+        display: block;
+        margin: 0 auto;
+        text-shadow: 0 0 80px rgba(255, 255, 255, 0.5);
+        background: url(https://i.ibb.co/RDTnNrT/animated-text-fill.png)
+          repeat-y;
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        -webkit-text-fill-color: transparent;
+        animation: aitf 80s linear infinite;
+        -webkit-animation: aitf 80s linear infinite;
+        transform: translate3d(0, 0, 0);
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+      }
+
+      @keyframes aitf {
+        0% {
+          background-position: 0% 50%;
+        }
+        100% {
+          background-position: 100% 50%;
+        }
+      }
+      .filter-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+
+      .filter-label {
+        font-size: 1.2em;
+        color: #f0db4f;
+        margin-right: 10px;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
+
+      #filterDropdown {
+        background-color: #333;
+        color: #f0db4f;
+        border: 1px solid #444;
+        padding: 10px;
+        font-size: 1em;
+        font-family: "Segoe UI", Tahoma, Verdana, sans-serif;
+        border-radius: 5px;
+        text-align: left;
+        margin: 10px 0;
+        width: auto;
+        max-width: 300px;
+        transition: background-color 0.2s ease;
+      }
+
+      #filterDropdown:hover {
+        background-color: #444;
+        cursor: pointer;
+      }
+
+      #filterDropdown option {
+        background-color: #333;
+        color: #fff;
+        padding: 10px;
+      }
+      table {
+        width: 90%;
+        max-width: 1000px;
+        margin-bottom: 30px;
+        background-color: #1a1a1a;
+        border-collapse: separate;
+        border-spacing: 0;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        overflow: hidden;
+      }
+
+      th,
+      td {
+        padding: 15px 20px;
+        text-align: left;
+        border-bottom: 1px solid #333;
+        color: #ffffff;
+      }
+
+      th {
+        background-color: #333;
+        color: #f0db4f;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+
+      td {
+        background-color: #1c1c1c;
+      }
+
+      .nested-table {
+        margin-top: 10px;
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #2c2c2c;
+        border-radius: 6px;
+        overflow: hidden;
+      }
+
+      .nested-table th,
+      .nested-table td {
+        padding: 10px 15px;
+        text-align: left;
+        border-bottom: 1px solid #444;
+      }
+
+      .nested-table th {
+        background-color: #3b3b3b;
+        color: #f0db4f;
+        font-weight: 600;
+      }
+
+      .nested-table tr:hover td {
+        background-color: #4b4b4b;
+        transition: background-color 0.2s ease-in-out;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        body {
+          padding: 10px;
+        }
+
+        table {
+          width: 100%;
+        }
+
+        th,
+        td {
+          padding: 12px;
+        }
+
+        h1 {
+          font-size: 2.2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>System Information</h1>
+    <div class="filter-container">
+      <span class="filter-label">Filter:</span>
+      <select id="filterDropdown">
+        <option value="">Show All</option>
+        {% for key in system_info.keys() %}
+        <option value="{{ key }}">{{ key }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <table id="infoTable">
+      <thead>
+        <tr>
+          <th>Key</th>
+          <th>Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for key, value in system_info.items() %}
+        <tr>
+          <td>{{ key }}</td>
+          <td>
+            {% if value is mapping %}
+            <table class="nested-table">
+              <thead>
+                <tr>
+                  <th>Key</th>
+                  <th>Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for sub_key, sub_value in value.items() %}
+                <tr>
+                  <td>{{ sub_key }}</td>
+                  <td>{{ sub_value }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            {% elif key in ["HDD/SSD Details", "Graphics Card Details"] %}
+            <table class="nested-table">
+              <thead>
+                <tr>
+                  {% for sub_key in value[0].keys() %}
+                  <th>{{ sub_key }}</th>
+                  {% endfor %}
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in value %}
+                <tr>
+                  {% for sub_value in item.values() %}
+                  <td>{{ sub_value }}</td>
+                  {% endfor %}
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            {% else %} {{ value }} {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <script>
+      // Convert the Flask system_info data to JSON
+      const systemInfo = {{ system_info | tojson }};
+
+      const filterDropdown = document.getElementById("filterDropdown");
+      const infoTableBody = document.querySelector("#infoTable tbody");
+
+      // Function to dynamically render table rows based on the provided data
+      function renderTable(data) {
+        infoTableBody.innerHTML = ""; // Clear current table content
+
+        Object.entries(data).forEach(([key, value]) => {
+          const row = document.createElement("tr");
+          const keyCell = document.createElement("td");
+          keyCell.textContent = key;
+
+          const valueCell = document.createElement("td");
+
+          if (typeof value === "object" && !Array.isArray(value)) {
+            // Render nested object as nested table
+            const nestedTable = document.createElement("table");
+            nestedTable.className = "nested-table";
+
+            nestedTable.innerHTML = `
+              <thead>
+                <tr>
+                  <th>Key</th>
+                  <th>Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${Object.entries(value)
+                  .map(
+                    ([subKey, subValue]) =>
+                      `<tr><td>${subKey}</td><td>${subValue}</td></tr>`
+                  )
+                  .join("")}
+              </tbody>
+            `;
+            valueCell.appendChild(nestedTable);
+          } else if (Array.isArray(value) && key === "HDD/SSD Details") {
+            // Render HDD/SSD Details section
+            const nestedTable = document.createElement("table");
+            nestedTable.className = "nested-table";
+
+            nestedTable.innerHTML = `
+              <thead>
+                <tr>
+                  <th>Device ID</th>
+                  <th>Model</th>
+                  <th>Media Type</th>
+                  <th>Size (GB)</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${value
+                  .map(
+                    (item) => `
+                      <tr>
+                        <td>${item["Device ID"] || 'N/A'}</td>
+                        <td>${item["Model"] || 'N/A'}</td>
+                        <td>${item["Media Type"] || 'N/A'}</td>
+                        <td>${item["Size (GB)"] || 'N/A'}</td>
+                      </tr>
+                    `
+                  )
+                  .join("")}
+              </tbody>
+            `;
+            valueCell.appendChild(nestedTable);
+          } else if (Array.isArray(value) && typeof value[0] === "object") {
+            // Render array of objects as a nested table with defined column order
+            const nestedTable = document.createElement("table");
+            nestedTable.className = "nested-table";
+
+            nestedTable.innerHTML = `
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Driver Version</th>
+                  <th>Video Processor</th>
+                  <th>Adapter RAM (GB)</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${value
+                  .map(
+                    (item) => `
+                      <tr>
+                        <td>${item.Name || 'N/A'}</td>
+                        <td>${item["Driver Version"] || 'N/A'}</td>
+                        <td>${item["Video Processor"] || 'N/A'}</td>
+                        <td>${item["Adapter RAM (GB)"] || 'N/A'}</td>
+                      </tr>
+                    `
+                  )
+                  .join("")}
+              </tbody>
+            `;
+            valueCell.appendChild(nestedTable);
+          } else {
+            // Render simple values directly
+            valueCell.textContent = value;
+          }
+
+          row.appendChild(keyCell);
+          row.appendChild(valueCell);
+          infoTableBody.appendChild(row);
+        });
+      }
+
+      // Initially render the table
+      renderTable(systemInfo);
+
+      // Filter functionality
+      filterDropdown.addEventListener("change", (e) => {
+        const selectedValue = e.target.value;
+
+        if (selectedValue) {
+          const filteredData = {};
+          for (const [key, value] of Object.entries(systemInfo)) {
+            if (key === selectedValue) {
+              filteredData[key] = value;
+            }
+          }
+          renderTable(filteredData);
+        } else {
+          renderTable(systemInfo); // Show all data if no filter is selected
+        }
+      });
+    </script>
+  </body>
+</html>

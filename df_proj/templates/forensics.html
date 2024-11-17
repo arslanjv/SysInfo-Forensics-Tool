@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Forensic Image Analysis</title>
+    <style>
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        background: #090d00;
+        color: rgba(255, 255, 255, 0.75);
+        font-family: "Arial", sans-serif;
+        margin: 0;
+      }
+
+      div {
+        border: 3px solid rgba(0, 0, 0, 0.6);
+        border-radius: 12px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 40px;
+        align-items: center;
+        min-height: 60vh;
+        min-width: 50vw;
+        flex-direction: column;
+        padding: 30px;
+        box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.5);
+        background: rgba(0, 0, 0, 0.7);
+      }
+
+      h1 {
+        font: 700 2em/1 "Oswald", sans-serif;
+        margin-bottom: 20px;
+        margin-top: 30px;
+        letter-spacing: 2px;
+        text-align: center;
+        background: url(https://i.ibb.co/RDTnNrT/animated-text-fill.png)
+          repeat-y;
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        -webkit-text-fill-color: transparent;
+        animation: aitf 80s linear infinite;
+      }
+
+      @keyframes aitf {
+        0% {
+          background-position: 0% 50%;
+        }
+        100% {
+          background-position: 100% 50%;
+        }
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 20px;
+      }
+
+      input[type="text"] {
+        padding: 7px;
+        font-size: 1.2em;
+        width: 70%;
+        border: 2px solid #333;
+        border-radius: 8px;
+        background-color: #f4f4f4;
+        color: #333;
+        margin: 0 auto;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      input[type="text"]:focus {
+        background-color: #a7a7a7;
+        outline: none;
+        box-shadow: 0 0 10px 3px rgba(0, 245, 255, 0.4);
+      }
+
+      button {
+        padding: 15px;
+        font-size: 1.5em;
+        cursor: pointer;
+        margin: 0 auto;
+        width: 80%;
+        height: 50px;
+        border: 1px solid #000;
+        background-color: #f0f0f0;
+        border-radius: 8px;
+        transition: background-color 0.3s ease, transform 1s ease,
+          box-shadow 0.7s ease;
+        color: #333;
+      }
+
+      button:hover {
+        background-color: #ccc;
+        color: #333;
+        transform: scale(1.05);
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.9);
+        box-shadow: 0 0 5px rgba(0, 245, 255, 0.4),
+          0 0 10px rgba(0, 245, 255, 0.6), 0 0 15px rgba(0, 245, 255, 0.7);
+      }
+
+      p {
+        font-size: 1.1em;
+        color: rgba(255, 255, 255, 0.75);
+        text-align: center;
+      }
+
+      .d1 {
+        display: flex;
+        margin-bottom: 60px;
+        margin-top: 15px;
+        justify-content: center;
+        width: 100%;
+        gap: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <h1>Forensic Analysis</h1>
+      <form action="{{ url_for('forensic_image_analysis') }}" method="post">
+        <span class="d1">
+          <label
+            for="image_path"
+            style="
+              font-size: 1em;
+              color: white;
+              text-align: left;
+              width: 50%;
+              display: block;
+              margin: 0 auto;
+            ">
+            Path of the folder containing Forensic registry files:
+          </label>
+          <input
+            type="text"
+            name="image_path"
+            id="image_path"
+            required
+            placeholder="e.g., /path/to/folder" />
+        </span>
+        <button type="submit">Scan</button>
+      </form>
+    </div>
+  </body>
+</html>

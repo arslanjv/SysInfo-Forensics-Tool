@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Main Page</title>
+    <style>
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        background: #090d00;
+        color: rgba(255, 255, 255, 0.25);
+        text-align: center;
+        margin: 0;
+      }
+
+      div {
+        border: 3px solid rgba(0, 0, 0, 0.541);
+        border-radius: 9px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+        min-height: 50vh;
+        min-width: 50vw;
+        flex-direction: column;
+        box-shadow: 0px 0px 6px rgba(255, 255, 255, 0.4);
+        background: rgba(0, 0, 0, 0.7);
+      }
+
+      h1 {
+        font: 700 2.5em/1 "Oswald", sans-serif;
+        letter-spacing: 0;
+        padding: 0.25em 0 0.325em;
+        display: block;
+        /* margin: 0 auto; */
+        text-align: center;
+        margin: 25px 10px 4px 10px;
+        text-shadow: 0 0 80px rgba(255, 255, 255, 0.5);
+
+        /* Clip Background Image */
+        background: url(https://i.ibb.co/RDTnNrT/animated-text-fill.png)
+          repeat-y;
+        background-clip: text;
+        -webkit-background-clip: text;
+
+        /* Animate Background Image */
+        color: transparent;
+        -webkit-text-fill-color: transparent;
+        animation: aitf 80s linear infinite;
+        -webkit-animation: aitf 80s linear infinite;
+
+        /* Hardware acceleration for smoother animations */
+        transform: translate3d(0, 0, 0);
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+      }
+
+      /* Animate Background Image */
+      @keyframes aitf {
+        0% {
+          background-position: 0% 50%;
+        }
+        100% {
+          background-position: 100% 50%;
+        }
+      }
+
+      button {
+        /* padding: 10px 30px; */
+        width: 80%;
+        height: 40px;
+        margin-top: 15px;
+        font-size: 1.2em;
+        text-align: center;
+        cursor: pointer;
+        border: 1px solid #000;
+        background-color: #f0f0f0;
+        border-radius: 5px;
+        transition: background-color 0.3s ease, transform 1s ease,
+          box-shadow 0.7s ease;
+      }
+      button:hover {
+        background-color: #ccc;
+        transform: scale(1.05);
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.9);
+        box-shadow: 0 0 5px rgba(0, 245, 255, 0.4),
+          0 0 10px rgba(0, 245, 255, 0.6), 0 0 15px rgba(0, 245, 255, 0.7);
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <h1>SysInfo Forensics Tool</h1>
+      <button
+        id="btn1"
+        onclick="window.location.href='{{ url_for('live_system_analysis') }}'">
+        Live System Analysis
+      </button>
+      <button
+        id="btn2"
+        onclick="window.location.href='{{ url_for('forensic_image_analysis') }}'">
+        Forensic Analysis
+      </button>
+    </div>
+  </body>
+</html>
