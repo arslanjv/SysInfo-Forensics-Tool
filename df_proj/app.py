@@ -34,14 +34,14 @@ def forensic_image_analysis():
                 ['python', 'forensics_script.py', image_path],
                 capture_output=True, text=True
             )
-            print(f"Subprocess result: {result.stdout}")  # Debug print
+            #print(f"Subprocess result: {result.stdout}")  # Debug print
 
             # Check if forensics1.json was generated
             if os.path.exists('forensics1.json'):
-                print("Forensics1.json found!")  # Debug print
+                #print("Forensics1.json found!")  # Debug print
                 with open("forensics1.json", "r") as json_file:
                     forensic_data = json.load(json_file)
-                    print(f"Forensic data: {forensic_data}")  # Debug print
+                    #print(f"Forensic data: {forensic_data}")  # Debug print
 
                 # Render forensics_info.html with the forensic data passed as system_info
                 return render_template("forensics_info.html", system_info=forensic_data)
