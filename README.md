@@ -72,5 +72,5 @@ This project is developed as part of a digital forensics semester project by a g
 - [Muhammad Arsalan Javed](https://github.com/arslanjv)   
 - [Hafiz Mustafa Zain](https://github.com/mustafaazain)  
 - [Ahmed Shahzad Zia](https://github.com/ChapriCheater)  
-- [Ahmed Tahir]()
+- [Ahmed Tahir](https://github.com/CentricPants)
 
