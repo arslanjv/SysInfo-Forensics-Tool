@@ -19,9 +19,9 @@ def find_hive_files(folder_path, hive_name):
 folder_path = sys.argv[1]  # This will get the image path passed from the app.py
 
 # Locate the SOFTWARE, SAM, SYSTEM, and SECURITY files
-software_hive_path = find_hive_files(folder_path, "SOFTWARE")
+software_hive_path = find_hive_files(folder_path, "software")
 sam_hive_path = find_hive_files(folder_path, "SAM")
-system_hive_path = find_hive_files(folder_path, "SYSTEM")
+system_hive_path = find_hive_files(folder_path, "system")
 security_hive_path = find_hive_files(folder_path, "SECURITY")
 
 # Initialize a dictionary to store all the forensic data
