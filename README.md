@@ -67,10 +67,7 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Acknowledgments
 
-This project is developed as part of a digital forensics semester project by a group of four students in their 5th semester.
+This project is developed as part of a digital forensics semester project.
 
-- [Muhammad Arsalan Javed](https://github.com/arslanjv)   
-- [Hafiz Mustafa Zain](https://github.com/mustafaazain)  
-- [Ahmed Shahzad Zia](https://github.com/ChapriCheater)  
-- [Ahmed Tahir](https://github.com/CentricPants)
+- [Muhammad Arsalan Javed](https://github.com/arslanjv)
 
